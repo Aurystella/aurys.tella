@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Un Abrazo para Ti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Nueva paleta de colores vibrantes */
+      --color-bg: #ff007f; /* Fucsia intenso para el fondo de la página */
+      --color-primary-dark: #ffffff; /* Blanco */
+      --color-primary: #ffcc00; /* Amarillo brillante */
+      --color-button-bg: #ff5733; /* Rojo anaranjado */
+      --color-button-hover-bg: #c70039; /* Rojo intenso */
+      --color-header-message: #ffcc00; /* Amarillo brillante para el mensaje del encabezado */
+      --color-pastel-bg: #2c3e50; /* Fondo gris azulado para el texto principal */
+      --color-modal-bg: #900c3f; /* Fucsia oscuro */
+      --color-modal-text: #ffffff; /* Texto blanco en el modal */
+      --color-contact-button-bg: #ff9800; /* Naranja para el botón "Contactar" */
+      --color-contact-button-text: #ffffff; /* Blanco para el texto del botón "Contactar" */
+
+      --border-radius: 0.75rem;
+      --max-width: 1200px;
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --transition-speed: 0.3s;
+      --font-family: 'Poppins', sans-serif;
+      --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-button: 0 6px 12px rgba(0, 0, 0, 0.2);
+      --shadow-modal: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--color-bg); /* Fondo fucsia intenso */
+      color: var(--color-primary-dark);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-lg) var(--space-md);
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--color-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--space-lg);
+      user-select: none;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-header-message);
+      white-space: pre-line;
+      line-height: 1.2;
+      max-width: 400px;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--color-contact-button-text); /* Texto blanco */
+      background-color: var(--color-contact-button-bg); /* Fondo naranja */
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      padding: 0.5rem 1rem; /* Espaciado para el botón */
+      border-radius: var(--border-radius);
+      transition: background-color var(--transition-speed), color var(--transition-speed);
+      margin-left: 1rem;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background-color: #e68a00; /* Color de fondo más oscuro al pasar el mouse */
+      color: var(--color-primary-dark); /* Cambiar texto a oscuro al pasar el mouse */
+      outline-offset: 2px;
+      outline: 2px solid var(--color-button-bg);
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-lg);
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .hero-text {
+      max-width: 600px;
+      background: var(--color-pastel-bg); /* Cambiado a un color más visible */
+      padding: var(--space-lg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 20px var(--shadow-light);
+      user-select: text;
+      color: var(--color-primary-dark);
+      animation: fadeInSlideUp 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeInSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: var(--space-md);
+      line-height: 1.1;
+      color: var(--color-primary-dark);
+      user-select: none;
+      white-space: nowrap; /* Keep Aurys.tella(As) always on one line */
+    }
+
+    .hero-text p {
+      margin: 0;
+      font-size: 1.25rem;
+      line-height: 1.5;
+      white-space: pre-line;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+    }
+
+    .hero-buttons {
+      margin-top: var(--space-md);
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      cursor: pointer;
+      background-color: var(--color-button-bg);
+      color: var(--color-modal-text);
+      font-weight: 700;
+      font-size: 1.25rem;
+      padding: 1rem 3rem;
+      border-radius: var(--border-radius);
+      border: none;
+      box-shadow: var(--shadow-button);
+      transition:
+        background-color var(--transition-speed),
+        box-shadow var(--transition-speed),
+        transform var(--transition-speed);
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      background-color: var(--color-button-hover-bg);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      transform: scale(1.05);
+      outline-offset: 3px;
+      outline: 3px solid var(--color-primary-dark);
+    }
+
+    .btn-primary:focus-visible {
+      outline-offset: 3px;
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
+      backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      padding: var(--space-md);
+      color: var(--color-modal-text);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Modal card */
+    .modal {
+      background: var(--color-modal-bg);
+      padding: var(--space-lg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-modal);
+      max-width: 480px;
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      user-select: text;
+      text-align: center;
+      animation: slideUp 0.3s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+      opacity: 0;
+      transform-origin: bottom center;
+      transform: translateY(40px) scale(0.95);
+      color: var(--color-modal-text);
+    }
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-message {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+      white-space: pre-line;
+      line-height: 1.6;
+      word-break: break-word;
+      color: var(--color-modal-text);
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-modal-text);
+      cursor: pointer;
+      transition: color var(--transition-speed);
+      line-height: 1;
+      user-select: none;
+    }
+    .btn-close:hover,
+    .btn-close:focus-visible {
+      color: #4f0027; /* dark shade of fuchsia for focus */
+      outline-offset: 4px;
+      outline: 4px solid #4f0027;
+    }
+
+    :focus-visible {
+      outline-offset: 3px;
+      outline: 4px solid var(--color-primary-dark);
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    /* Responsive */
+    @media (max-width: 650px) {
+      main {
+        margin: 4rem auto;
+        padding: 0 var(--space-md);
+      }
+      .hero-text h1 {
+        font-size: 2.5rem;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-buttons {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+      .modal {
+        max-width: 90vw;
+        padding: 2rem;
+      }
+      .modal-message {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header role="banner">
+  <div class="logo" tabindex="0" aria-label="Mensaje en encabezado" style="color: var(--color-header-message);">
+    si tienes problemas escribeme<br />
+    no resuelvo problemas<br />
+    pero me gusta el chisme
+  </div>
+  <nav role="navigation" aria-label="Navegación principal">
+    <a href="https://wa.me/573183832965" target="_blank" rel="noopener noreferrer" tabindex="0">Contactar</a>
+  </nav>
+</header>
+
+<main role="main">
+  <section class="hero-text" aria-live="polite">
+    <h1>Aurys.tella (As):</h1>
+    <p>
+      no te quejes de tu carga<br />
+      no pidas una carga mas liviana<br />
+      acepta tu carga<br />
+      solo pide hombros mas fuertes
+    </p>
+    <div class="hero-buttons">
+      <button class="btn-primary" id="show-message-btn" aria-haspopup="dialog" aria-controls="message-modal" aria-label="Mostrar mensaje para As">
+        Mostrar mensaje
+      </button>
+    </div>
+  </section>
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="message-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+     aria-describedby="modal-desc" tabindex="-1">
+  <div class="modal" role="document">
+    <button class="btn-close" aria-label="Cerrar mensaje" id="modal-close">&times;</button>
+    <div id="modal-title" style="font-weight: 700; font-size: 1.75rem; margin-bottom: var(--space-sm);">
+      Mensaje para As ✨
+    </div>
+    <div class="modal-message" id="modal-desc"></div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const messages = [
+      "que visaje la vida ome\nbueno \na trabajar que hay que hacer plata",
+      "Rosa\nhay que ser la verga\nla propia verga erecta",
+      "o como el robledal cuya grandeza\nnecesita del agua y no la implora",
+      "soy el capitan de mi alma\nsoy el amo de mi destino",
+      "Rosaaaa\nponte las pilas rosa",
+      "y recuerda\no es blanco\no es negro\nno hay grises"
+    ];
+
+    let currentIndex = 0;
+
+    const modal = document.getElementById("message-modal");
+    const modalMessage = document.getElementById("modal-desc");
+    const showBtn = document.getElementById("show-message-btn");
+    const closeBtn = document.getElementById("modal-close");
+    let lastFocusedElement = null;
+
+    function openModal() {
+      lastFocusedElement = document.activeElement;
+      modalMessage.textContent = messages[currentIndex]; // Actualiza el contenido del modal
+      currentIndex = (currentIndex + 1) % messages.length; // Cambia al siguiente mensaje
+      modal.classList.add("active");
+      document.body.classList.add("modal-open");
+      modal.setAttribute('tabindex', '0');
+      modal.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove("active");
+      document.body.classList.remove("modal-open");
+      if(lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    }
+
+    function onKeydown(event) {
+      if (event.key === "Escape" && modal.classList.contains("active")) {
+        event.preventDefault();
+        closeModal();
+      } else if (event.key === "Tab" && modal.classList.contains("active")) {
+        const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableElements.length === 0) return;
+        const firstEl = focusableElements[0];
+        const lastEl = focusableElements[focusableElements.length - 1];
+        if (event.shiftKey) {
+          if (document.activeElement === firstEl) {
+            lastEl.focus();
+            event.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastEl) {
+            firstEl.focus();
+            event.preventDefault();
+          }
+        }
+      }
+    }
+
+    showBtn.addEventListener("click", openModal);
+    closeBtn.addEventListener("click", closeModal);
+    document.addEventListener("keydown", onKeydown);
+  })();
+</script>
+</body>
+</html>
